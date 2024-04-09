@@ -22,7 +22,7 @@ parser.add_argument(
     "--long",
     action="store_true",
     default=False,
-    help="Show all occurances of the sniff",
+    help="Show all occurrences of the sniff",
 )
 args = parser.parse_args()
 
@@ -59,8 +59,8 @@ for file, report in data.get("files", {}).items():
 if args.sniffs:
     sniffs = {k: v for k, v in sniffs.items() if k in args.sniffs}
 
-for sniff_name, occurances in sniffs.items():
-    print(f"{len(occurances):<5} {sniff_name}")
+for sniff_name, occurrences in sniffs.items():
+    print(f"{len(occurrences):<5} {sniff_name}")
     if args.long:
-        for occurance in occurances:
-            print("  ", occurance[0], "...", occurance[1])
+        for occurrence in occurrences:
+            print("  ", occurrence[0], "...", occurrence[1])
