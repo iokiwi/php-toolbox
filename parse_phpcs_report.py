@@ -49,7 +49,7 @@ for file, report in data.get("files", {}).items():
         warnings = sniffs.get(sniff_name, [])
         warnings.append(
             (
-                f"[SEV:{message['severity']}] {message['message']}",
+                f"[{message['type']}:{message['severity']}] {message['message']}",
                 f"{file}, line: {message['line']}",
             )
         )
@@ -57,11 +57,10 @@ for file, report in data.get("files", {}).items():
 
 # If a specific sniff is requested, throw away everything else.
 if args.sniffs:
-    filtered_sniffs = {k: v for k, v in sniffs.items() if k in list(args.sniffs)}
-    sniffs = filtered_sniffs
+    sniffs = {k: v for k, v in sniffs.items() if k in args.sniffs}
 
 for sniff_name, occurances in sniffs.items():
     print(f"{len(occurances):<5} {sniff_name}")
     if args.long:
         for occurance in occurances:
-            print("\t", occurance[0], ".........", occurance[1])
+            print("  ", occurance[0], "...", occurance[1])
