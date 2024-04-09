@@ -35,7 +35,10 @@ elif not sys.stdin.isatty():
     input_data = sys.stdin.read()
 else:
     print(
-        "phpcs report must be either piped in or a file must be specified with the -f, --file option"
+        (
+            "phpcs report must be either piped in or a file"
+            "must be specified with the -f, --file option"
+        )
     )
     sys.exit(1)
 

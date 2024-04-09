@@ -4,6 +4,27 @@ A personal collection of coping mechanisms for working with PHP for someone who'
 
 These tools are not necessarily written with php, they are whatever for working with php and other tools in the php ecosystem.
 
+## Dockerfile
+
+A docker container for doing things with various versions of php  without having
+to install php on my machine or screwing up host machine file permissions.
+
+```bash
+docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 composer install
+docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 phpcs
+docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 phpcbf
+```
+
+Build the container image
+
+```bash
+docker build . \
+    --build-arg PHP_VERSION=8.1 \
+    --build-arg USER_ID=$(id -u) \
+    --build-arg GROUP_ID=$(id -g) \
+    -t any-php:8.1
+```
+
 ## parse_phpcs_report.py
 
 A script for helping sift through reports from PHP_CodeSniffer.
@@ -28,23 +49,14 @@ Optionally, add the script to your path
 sudo ln -s $(pwd)/parse_phpcs_report.py /usr/bin/parse_phpcs_report
 ```
 
-## Dockerfile
-
-A docker container for doing things with various versions of php  without having
-to install php on my machine or screwing up host machine file permissions.
-
-```bash
-docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 composer install
-docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 phpcs
-docker run --rm -it -v $(pwd):/home/www-data any-php:8.1 phpcbf
+Usage
 ```
+usage: parse_phpcs_report [-h] [-s SNIFFS [SNIFFS ...]] [-f FILE] [-l]
 
-Build the container image
-
-```bash
-docker build . \
-    --build-arg PHP_VERSION=8.1 \
-    --build-arg USER_ID=$(id -u) \
-    --build-arg GROUP_ID=$(id -g) \
-    -t any-php:8.1
+options:
+  -h, --help            show this help message and exit
+  -s SNIFFS [SNIFFS ...], --sniffs SNIFFS [SNIFFS ...]
+                        Only show information about a specific sniff
+  -f FILE, --file FILE  The path to a json formatted phpcs report. Otherwise, JSON report can be piped in
+  -l, --long            Show all occurrences of the sniff
 ```
