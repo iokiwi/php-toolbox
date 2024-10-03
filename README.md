@@ -51,12 +51,13 @@ sudo ln -s $(pwd)/parse_phpcs_report.py /usr/bin/parse_phpcs_report
 
 Usage
 ```
-usage: parse_phpcs_report [-h] [-s SNIFFS [SNIFFS ...]] [-f FILE] [-l]
+usage: parse_phpcs_report [-h] [-s SNIFFS [SNIFFS ...]] [-f FILE] [--fixable] [-v]
 
 options:
   -h, --help            show this help message and exit
   -s SNIFFS [SNIFFS ...], --sniffs SNIFFS [SNIFFS ...]
-                        Only show information about a specific sniff
+                        Only show information about a specific sniff or set of sniffs
   -f FILE, --file FILE  The path to a json formatted phpcs report. Otherwise, JSON report can be piped in
-  -l, --long            Show all occurrences of the sniff
+  --fixable             Only collate automatically fixable sniffs.
+  -v, --verbose         Show all the files where a sniff occurs.
 ```
